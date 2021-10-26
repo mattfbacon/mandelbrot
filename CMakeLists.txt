@@ -38,6 +38,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
 	-Wcpp \
 	-Wno-enum-compare \
 	-frtti -fexceptions \
+	-ffast-math \
 	-DMSGPACK_DISABLE_LEGACY_CONVERT \
 	")
 if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
@@ -84,11 +85,5 @@ target_include_directories(${EXECUTABLE_NAME} SYSTEM PRIVATE ${${PROJECT_NAME}_S
 set_property(TARGET ${EXECUTABLE_NAME} PROPERTY RUNTIME_OUTPUT_DIRECTORY "${${PROJECT_NAME}_SOURCE_DIR}/${DIR_DIST}")
 
 # Extra Stuff Starts Here
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(GTKMM REQUIRED gtkmm-4.0)
-target_link_directories(${EXECUTABLE_NAME} PRIVATE ${GTKMM_LIBRARY_DIRS})
-target_include_directories(${EXECUTABLE_NAME} PRIVATE ${GTKMM_INCLUDE_DIRS})
-target_link_libraries(${EXECUTABLE_NAME} PRIVATE ${GTKMM_LIBRARIES})
-
-find_package(OpenMP REQUIRED)
-target_link_libraries(${EXECUTABLE_NAME} PRIVATE OpenMP::OpenMP_CXX)
+include(${DIR_LIB}/gtkmm4.cmake)
+target_link_libraries(${EXECUTABLE_NAME} PRIVATE gtkmm4)

@@ -1,0 +1,6 @@
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(GTKMM REQUIRED gtkmm-4.0)
+add_library(gtkmm4 INTERFACE)
+target_link_directories(gtkmm4 INTERFACE ${GTKMM_LIBRARY_DIRS})
+target_include_directories(gtkmm4 INTERFACE SYSTEM ${GTKMM_INCLUDE_DIRS})
+target_link_libraries(gtkmm4 INTERFACE ${GTKMM_LIBRARIES})
